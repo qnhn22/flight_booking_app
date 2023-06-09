@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: flight_booking_app_production
-  username: quannguyenhn
+  username: flight_booking_app
   password: <%= ENV["DATABASE_PASSWORD"] %>

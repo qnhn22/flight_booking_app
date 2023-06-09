@@ -1,0 +1,27 @@
+<h1>Search flights</h1>
+
+<%= form_with model: Flight.new, url: flights_path, method: :get do |form| %>
+  <%= form.select(:departure_airport_id, @airports) %>
+  <%= form.select(:arrival_airport_id, @airports) %>
+  <%= select_tag :passenger_count, options_for_select([ 1, 2, 3, 4 ]) %>
+  <%= form.select(:departure_time, @dates) %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<br><br>
+<% if @flights %>
+  <%= form_with url: new_booking_path, method: :get do |f|%>
+    <%= hidden_field_tag 'passenger_count', @passenger_count %>
+    <% @flights.each do |flight| %>
+      <%= f.radio_button :flight_id, "#{flight.id}" %>
+      <p>
+        Departure Time:
+        <%= flight.departure_time %><br><br>
+        Flight Duration:
+        <%= flight.duration %><br><br>
+      </p>
+      <br>
+    <% end %>
+  <%= f.submit "Continue" %>
+  <% end %>
+<% end %>
